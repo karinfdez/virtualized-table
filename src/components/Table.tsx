@@ -1,8 +1,7 @@
 // Table built using tanstack table
 import { useReactTable, ColumnDef, flexRender, getCoreRowModel } from "@tanstack/react-table";
 import { useEffect, useState, CSSProperties } from "react";
-import { RingLoader } from "react-spinners";
-
+import {Spinner} from './Spinner'
 type Product = {
   id: number;
   title: string;
@@ -52,7 +51,6 @@ export const Table = () => {
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState('')
 	const [data, setData] = useState([])
-	let [color, setColor] = useState("red");
 
 	const PAGE_LIMIT = 50
 
@@ -114,12 +112,9 @@ export const Table = () => {
 				</table>
 			</div>}
 			{loading && (
-				 <RingLoader
+				<Spinner
 					color="#4F46E5"   // Indigo
 					loading={loading}
-					size={120}
-					aria-label="Loading Spinner"
-					data-testid="loader"
 				/>
 			)}
 			{error && <div className="text-red-500 font-medium">{error}</div>}
