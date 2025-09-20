@@ -1,7 +1,7 @@
 // Table built using tanstack table
 import { useReactTable, ColumnDef, flexRender, getCoreRowModel } from "@tanstack/react-table";
 import { useEffect, useState, CSSProperties } from "react";
-import { ClipLoader } from "react-spinners";
+import { RingLoader } from "react-spinners";
 
 type Product = {
   id: number;
@@ -64,11 +64,12 @@ export const Table = () => {
 					const result = await fetch(`https://dummyjson.com/products?limit=${PAGE_LIMIT}`)
 					if(!result.ok) throw new Error('There was an error fetching products')
 					const finaData = await result.json()
-					setData(finaData.products)
+					  setTimeout(() => {
+							setData(finaData.products);
+							setLoading(false); // ✅ only stop loading when data is set
+    				}, 800); //Added timeout to show spinner a little longer
 				} catch(error:any) {
 					setError(error.message)
-				}finally{
-					setLoading(false)
 				}
 			}
 			fetchElements()
@@ -113,11 +114,10 @@ export const Table = () => {
 				</table>
 			</div>}
 			{loading && (
-				<ClipLoader
-					color={color}
+				 <RingLoader
+					color="#4F46E5"   // Indigo
 					loading={loading}
-					cssOverride={override}
-					size={150}
+					size={120}
 					aria-label="Loading Spinner"
 					data-testid="loader"
 				/>
