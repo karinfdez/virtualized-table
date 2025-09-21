@@ -109,7 +109,7 @@ export const Table = () => {
 			{data && data.length > 0 && <div className="overflow-x-auto shadow-lg rounded-lg w-full max-w-4xl">
 						{/* This gives virtualization. Allowing to load 1000 of data, but only showing certain amount in the DOM */}
 						<TableVirtuoso
-							style={{ height: "700px" }}
+							style={{ height: "600px" }}
 							data={data}
 							// Virtuoso attaches in props the style, children, ref
 							// These are the skeleton tags: table, thead, tbody, tr
@@ -120,8 +120,8 @@ export const Table = () => {
 										className="w-full border-collapse text-sm text-left table-fixed" 
 									/>
 								),
-								TableHead: (props) => <thead {...props} className="bg-indigo-100 text-indigo-700 text-center" />,
-								TableRow: (props) => <tr {...props} className="hover:bg-gray-100 transition-colors text-center" />,
+								TableHead: (props) => <thead {...props} className="bg-indigo-100 text-indigo-700 text-center shadow-md" />,
+								TableRow: (props) => <tr {...props} className="odd:bg-gray-50 even:bg-white hover:bg-gray-100 cursor-pointer transition-colors text-center" />,
 								TableBody: (props) => <tbody {...props} />
   						}}
 							// Tells Virtuoso what should render inside <thead>
