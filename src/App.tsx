@@ -5,7 +5,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center p-10">
-      <div className="py-12 w-full text-center">
+      <div className="pt-12 pb-6 w-full text-center">
           <h1 className="text-2xl font-bold text-indigo-700 mb-2">
              Virtualized Infinite Scroll Product Table
           </h1>
