@@ -1,5 +1,10 @@
 # 📊 Virtualized Product Table
 
+## 🌐 Live Demo
+👉 Try it here: [Live on Vercel](https://virtualized-table-agl7fajju-karinfdezpgmailcoms-projects.vercel.app/)  
+
+---
+
 A high-performance **React + TypeScript** product table that demonstrates:
 - **Virtualized rendering** with [React Virtuoso](https://virtuoso.dev/) (smooth scrolling with a lot of of rows)
 - **Data table logic** with [TanStack Table](https://tanstack.com/table/latest)
@@ -47,11 +52,6 @@ This project is designed to showcase frontend engineering skills for handling **
 ✅ **No more data state** – graceful message when all data is loaded  
 ✅ **Responsive & styled** – works across desktop & mobile  
 
-
-## 🌐 Live Demo
-👉 Try it here: [Live on Vercel](https://your-demo-url.vercel.app)  
-
----
 
 ## 🛠️ Installation & Setup
 
