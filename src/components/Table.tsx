@@ -32,18 +32,22 @@ const mockData: Product[] = [
         {
             header: "ID",
             accessorKey: "id",
+						size: 80
         },
         {
             header: "Title",
             accessorKey: "title",
+						size: 300
         },
         {
             header: "Price",
             accessorKey: "price",
+						size: 100
         },
         {
             header: "Category",
             accessorKey: "category",
+						size: 200
         },
     ];
 
@@ -86,7 +90,7 @@ export const Table = () => {
    return (
 		<>
 			{data && data.length > 0 && <div className="overflow-x-auto shadow-lg rounded-lg w-full max-w-4xl">
-				<table className="w-full border-collapse text-sm text-left">
+				<table className="w-full border-collapse text-sm text-left table-fixed">
 						{/* This gives virtualization. Allowing to load 1000 of data, but only showing certain amount in the DOM */}
 						<TableVirtuoso
 							style={{ height: "500px" }}
@@ -94,9 +98,14 @@ export const Table = () => {
 							// Virtuoso attaches in props the style, children, ref
 							// These are the skeleton tags: table, thead, tbody, tr
 							components={{
-								Table: (props) => <table {...props} className="w-full border-collapse text-sm text-left" />,
-								TableHead: (props) => <thead {...props} className="bg-indigo-100 text-indigo-700" />,
-								TableRow: (props) => <tr {...props} className="hover:bg-gray-100 transition-colors" />,
+								Table: (props) => (
+									<table 
+										{...props} 
+										className="w-full border-collapse text-sm text-left table-fixed" 
+									/>
+								),
+								TableHead: (props) => <thead {...props} className="bg-indigo-100 text-indigo-700 text-center" />,
+								TableRow: (props) => <tr {...props} className="hover:bg-gray-100 transition-colors text-center" />,
 								TableBody: (props) => <tbody {...props} />,
 							}}
 							// Tells Virtuoso what should render inside <thead>
@@ -105,7 +114,11 @@ export const Table = () => {
 									{/* Call table.getHeaderGroups() from TanStack to loop over headers and render <th> cells. */}
 									{table.getHeaderGroups().map((hg) =>
 										hg.headers.map((header) => (
-											<th key={header.id} className="px-4 py-3 border-b font-semibold">
+											<th 
+												key={header.id} 
+												className="px-4 py-3 border-b font-semibold"
+												style={{ width: header.column.getSize() }}
+											>
 												{flexRender(header.column.columnDef.header, header.getContext())}
 											</th>
 										))
