@@ -1,6 +1,6 @@
 // Table built using tanstack table
 import { useReactTable, ColumnDef, flexRender, getCoreRowModel } from "@tanstack/react-table";
-import { useEffect, useState, CSSProperties } from "react";
+import { useEffect, useState } from "react";
 import { TableVirtuoso } from "react-virtuoso";
 import {Spinner} from './Spinner'
 
@@ -156,12 +156,14 @@ export const Table = () => {
   						}}
 						/>
 				</table>
+
 				{isFetchingMore && (
 					<div className="flex justify-center items-center py-4">
 						<div className="w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
 						<span className="ml-2 text-sm text-indigo-600">Loading more...</span>
 					</div>
 				)}
+				
 				{/* No more data is being fetch and there is no more data left in the API */}
 				{ !isFetchingMore && showNoMore && (
 					<div className="flex justify-center items-center py-4">
