@@ -107,7 +107,6 @@ export const Table = () => {
    return (
 		<>
 			{data && data.length > 0 && <div className="overflow-x-auto shadow-lg rounded-lg w-full max-w-4xl">
-				<table className="w-full border-collapse text-sm text-left table-fixed">
 						{/* This gives virtualization. Allowing to load 1000 of data, but only showing certain amount in the DOM */}
 						<TableVirtuoso
 							style={{ height: "700px" }}
@@ -155,7 +154,6 @@ export const Table = () => {
     						fetchElements();
   						}}
 						/>
-				</table>
 
 				{isFetchingMore && (
 					<div className="flex justify-center items-center py-4">
@@ -163,7 +161,7 @@ export const Table = () => {
 						<span className="ml-2 text-sm text-indigo-600">Loading more...</span>
 					</div>
 				)}
-				
+
 				{/* No more data is being fetch and there is no more data left in the API */}
 				{ !isFetchingMore && showNoMore && (
 					<div className="flex justify-center items-center py-4">
