@@ -1,6 +1,8 @@
 // Table built using tanstack table
 import { useReactTable, ColumnDef, flexRender, getCoreRowModel } from "@tanstack/react-table";
 import { useEffect, useState, CSSProperties } from "react";
+import { TableVirtuoso } from "react-virtuoso";
+
 import {Spinner} from './Spinner'
 type Product = {
   id: number;
@@ -85,30 +87,41 @@ export const Table = () => {
 		<>
 			{data && data.length > 0 && <div className="overflow-x-auto shadow-lg rounded-lg w-full max-w-4xl">
 				<table className="w-full border-collapse text-sm text-left">
-						<thead className="bg-indigo-100 text-indigo-700">
-								{table.getHeaderGroups().map((hg) => (
-								<tr key={hg.id}>
-										{hg.headers.map((header) => (
-										<th className="px-4 py-3 border-b font-semibold" key={header.id}>
+						{/* This gives virtualization. Allowing to load 1000 of data, but only showing certain amount in the DOM */}
+						<TableVirtuoso
+							style={{ height: "500px" }}
+							data={data}
+							// Virtuoso attaches in props the style, children, ref
+							// These are the skeleton tags: table, thead, tbody, tr
+							components={{
+								Table: (props) => <table {...props} className="w-full border-collapse text-sm text-left" />,
+								TableHead: (props) => <thead {...props} className="bg-indigo-100 text-indigo-700" />,
+								TableRow: (props) => <tr {...props} className="hover:bg-gray-100 transition-colors" />,
+								TableBody: (props) => <tbody {...props} />,
+							}}
+							// Tells Virtuoso what should render inside <thead>
+							fixedHeaderContent={() => (
+								<tr>
+									{/* Call table.getHeaderGroups() from TanStack to loop over headers and render <th> cells. */}
+									{table.getHeaderGroups().map((hg) =>
+										hg.headers.map((header) => (
+											<th key={header.id} className="px-4 py-3 border-b font-semibold">
 												{flexRender(header.column.columnDef.header, header.getContext())}
-										</th>
-										))}
+											</th>
+										))
+									)}
 								</tr>
-								))}
-						</thead>
-						<tbody>
-								{table.getRowModel().rows.map((row) => (
-								<tr 
-										className="hover:bg-gray-100 transition-colors"
-										key={row.id}>
-										{row.getVisibleCells().map((cell) => (
-												<td key={cell.id} className="px-4 py-2 border-b">
-														{flexRender(cell.column.columnDef.cell, cell.getContext())}
-												</td>
-										))}
-								</tr>
-								))}
-						</tbody>
+							)}
+							// Tells Virtuoso what goes inside each <tr> in <tbody>
+							itemContent={(index, product: Product) => {
+								const row = table.getRowModel().rows[index]; //Grabbing this row from TanStack
+								return row.getVisibleCells().map((cell) => (
+									<td key={cell.id} className="px-4 py-2 border-b">
+										{flexRender(cell.column.columnDef.cell, cell.getContext())}
+									</td>
+								));
+							}}
+						/>
 				</table>
 			</div>}
 			{loading && (
